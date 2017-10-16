@@ -18,7 +18,7 @@ class Candidate(models.Model):
 
   real_name = models.CharField(max_length=250)
   birth_date = models.DateField()
-  is_citizen = models.BooleanField(blank=True)
+  is_citizen = models.NullBooleanField(null=True)
   description = models.TextField()
   favourite_language = models.CharField(
     max_length=3,
