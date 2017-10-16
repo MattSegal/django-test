@@ -33,11 +33,14 @@ class Candidate(models.Model):
     return '{} ({})'.format(self.real_name, self.uuid)
 
   def resume_data(self):
+    self.resume.seek(0)
+    resume_base64 = base64.b64encode(self.resume.read())
     return base64.b64encode(self.resume.read())
 
   def resume_encoding(self):
     return 'base64'
 
-  def resume_hash(self):
-    resume_bytes = b'woo this is some bytes'
-    return sha256(resume_bytes).hexdigest()
+  def resume_sha256(self):
+    self.resume.seek(0)
+    sha256_hash = sha256(self.resume.read()).hexdigest() 
+    return sha256_hash

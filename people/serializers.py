@@ -4,7 +4,7 @@ from .models import Candidate
 
 class CandidateSerializer(serializers.ModelSerializer):
   resume_data = serializers.ReadOnlyField()
-  resume_hash = serializers.ReadOnlyField()
+  resume_sha256 = serializers.ReadOnlyField()
   resume_encoding = serializers.ReadOnlyField()
 
   class Meta:
@@ -19,7 +19,7 @@ class CandidateSerializer(serializers.ModelSerializer):
       'photo',
       'resume_data',
       'resume_encoding',
-      'resume_hash',
+      'resume_sha256',
       'uuid',
     )
 
