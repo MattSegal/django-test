@@ -1,9 +1,12 @@
+import base64
 import uuid
+import os
+from hashlib import sha256
+
 from django.db import models
 
 
 class Candidate(models.Model):
-
   LANGUAGE_CHOICES = (
     ('PYT', 'Python'),
     ('PHP', 'PHP'),
@@ -22,10 +25,19 @@ class Candidate(models.Model):
     choices=LANGUAGE_CHOICES,
   )
   years_experience = models.PositiveIntegerField()
-  #photo = models.FileField()
-  resume = models.TextField()
-  resume_hash = models.CharField(max_length=64)
+  photo = models.FileField(upload_to='photos')
+  resume = models.FileField(upload_to='resume')
   uuid = models.UUIDField(default=uuid.uuid4)
 
   def __str__(self):
-    return '<Candidate {} ({})>'.format(self.real_name, self.uuid)
+    return '{} ({})'.format(self.real_name, self.uuid)
+
+  def resume_data(self):
+    return base64.b64encode(self.resume.read())
+
+  def resume_encoding(self):
+    return 'base64'
+
+  def resume_hash(self):
+    resume_bytes = b'woo this is some bytes'
+    return sha256(resume_bytes).hexdigest()
