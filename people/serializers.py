@@ -3,9 +3,10 @@ from rest_framework import serializers
 from .models import Candidate
 
 class CandidateSerializer(serializers.ModelSerializer):
-  resume_data = serializers.ReadOnlyField()
-  resume_sha256 = serializers.ReadOnlyField()
+  resume_filename = serializers.ReadOnlyField()
   resume_encoding = serializers.ReadOnlyField()
+  resume_sha256 = serializers.ReadOnlyField()
+  resume_data = serializers.ReadOnlyField()
 
   class Meta:
     model = Candidate
@@ -17,9 +18,10 @@ class CandidateSerializer(serializers.ModelSerializer):
       'favourite_language',
       'years_experience',
       'photo',
-      'resume_data',
+      'resume_filename',
       'resume_encoding',
       'resume_sha256',
+      'resume_data',
       'uuid',
     )
 

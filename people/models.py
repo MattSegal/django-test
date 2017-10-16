@@ -32,10 +32,13 @@ class Candidate(models.Model):
   def __str__(self):
     return '{} ({})'.format(self.real_name, self.uuid)
 
+  def resume_filename(self):
+    return os.path.basename(self.resume.name)
+
   def resume_data(self):
     self.resume.seek(0)
     resume_base64 = base64.b64encode(self.resume.read())
-    return base64.b64encode(self.resume.read())
+    return resume_base64
 
   def resume_encoding(self):
     return 'base64'
